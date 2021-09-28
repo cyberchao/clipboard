@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        font: 16px Helvetica;
+        background: #1abc9c;
+      }
+
+      .container {
+        width: 600px;
+        margin: 2em auto;
+        overflow: hidden;
+        background: white;
+        border-radius: 5px;
+      }
+
+      .message,
+      .contact,
+      .name,
+      .footer,
+      header,
+      footer,
+      textarea {
+        display: block;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        clear: both;
+        overflow: hidden;
+      }
+
+      header,
+      footer {
+        background: rgba(0, 0, 0, 0.05);
+        padding-left: 20px;
+        border-radius: 5px 5px 0 0;
+      }
+      header h1,
+      footer h1 {
+        font-size: 1.2em;
+        color: rgba(51, 51, 51, 0.4);
+      }
+
+      .first,
+      .last {
+        float: left;
+        width: 278px;
+        margin: 0;
+        padding: 0 0 0 20px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        height: 50px;
+      }
+
+      .last {
+        width: 279px;
+        border-left: 0;
+      }
+
+      .email,
+      textarea {
+        height: 50px;
+        width: 578px;
+        padding: 0 0 0 20px;
+        border-top: 0;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      textarea {
+        height: 600px;
+      }
+
+      footer {
+        height: 49px;
+        border-top: 1px dashed rgba(0, 0, 0, 0.3);
+        border-radius: 0 0 5px 5px;
+        padding-left: 0;
+        padding-right: 20px;
+      }
+      footer button {
+        height: 32px;
+        background: #e74c3c;
+        border-radius: 5px;
+        border: 0;
+        margin: 7px 0;
+        color: white;
+        float: right;
+        padding: 0 20px 0 20px;
+        border-bottom: 3px solid #c0392b;
+        transition: all linear 0.2s;
+      }
+      footer button:hover {
+        background: #c0392b;
+      }
+      footer button:focus {
+        outline: none;
+      }
+      .first:focus,
+      .last:focus,
+      .email:focus,
+      textarea:focus {
+        outline: none;
+        background: rgba(52, 152, 219, 0.1);
+        color: rgba(51, 51, 51, 0.7);
+      }
+    </style>
+  </head>
+
+  <body translate="no">
+    <div class="container">
+      <header>
+        <h1>Clipboard</h1>
+      </header>
+      <div class="message">
+        <textarea id="data" placeholder="write something">{{.data}}</textarea>
+      </div>
+      <footer>
+        <button id="save">Save</button>
+      </footer>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    $("#save").click(function () {
+      var data = $("#data").val();
+      console.log(data);
+      var form = { data: data }; //Array
+      $.ajax({
+        url: "/modify",
+        type: "POST",
+        data: form,
+        success: function (data) {
+          alert("save success!");
+        },
+        error: function () {
+          alert("save faild!");
+        },
+      });
+    });
+  </script>
+</html>

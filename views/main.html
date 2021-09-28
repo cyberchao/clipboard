@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>clipboard</title>
+  </head>
+  <body>
+    <textarea id="data">{{.data}}</textarea>
+    <button id="save">save</button>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    $("#save").click(function () {
+      var data = $("#data").val();
+      console.log(data);
+      var form = { data: data }; //Array
+      $.ajax({
+        url: "/modify",
+        type: "POST",
+        data: form,
+        success: function (data) {
+          alert("save success!");
+        },
+        error: function () {
+          alert("save faild!");
+        },
+      });
+    });
+  </script>
+</html>
